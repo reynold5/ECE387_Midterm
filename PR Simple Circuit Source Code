@@ -1,8 +1,5 @@
 //Original Source code modified and adapted from the following source:  http://www.ardumotive.com/how-to-use-a-photoresistor-en.html
 
-
-   
-
 //Constants
 const int pResistor = A0; // Photoresistor at Arduino analog pin A0
 //const int ledPin=9;       // Led pin at Arduino pin 9
@@ -35,13 +32,4 @@ void loop(){
   
 }
   
-/*  //You can change value "25"
-  if (value > 400){
-    digitalWrite(ledPin, LOW);  //Turn led off
-  }
-  else{
-    digitalWrite(ledPin, HIGH); //Turn led on
-  }
 
-  delay(500); //Small delay
-}*/
