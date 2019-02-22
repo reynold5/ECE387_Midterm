@@ -1,0 +1,47 @@
+//Original Source code modified and adapted from the following source:  http://www.ardumotive.com/how-to-use-a-photoresistor-en.html
+
+
+   
+
+//Constants
+const int pResistor = A0; // Photoresistor at Arduino analog pin A0
+//const int ledPin=9;       // Led pin at Arduino pin 9
+
+//Variables
+int ADCReading; // Store value from photoresistor (0-1023) //Analog to Digital Conversion Factor
+float VOut;
+float Rcds;
+
+void setup(){
+ Serial.begin(9600);
+ //pinMode(ledPin, OUTPUT);  // Set lepPin - 9 pin as an output
+ pinMode(pResistor, INPUT);// Set pResistor - A0 pin as an input (optional)
+}
+
+void loop(){
+  ADCReading = analogRead(pResistor); //Read ADC value between 0-1023
+  Serial.print("ADC Value: "); 
+  Serial.println(ADCReading);//Prints ADC value between 0-1023
+  VOut = (ADCReading/204.6); //Converts ADC value into voltage value
+  //VOut value represents voltage drop across photoresistor
+  Serial.print("Voltage: "); 
+  Serial.println(VOut); // Prints voltage drop across the photoresistor value
+  //Rcds is the variant resistance value of the photoresistor as it operates within the circuit
+  Rcds = ((50000/VOut)-10000); //Voltage division equation used to solve for Rcds
+  Serial.println("Photoresistor Resistance: ");
+  Serial.println(Rcds);//Prints resistance value of photoresistor at given time
+  Serial.println(); //Skips a line so values clusters are easier to read
+  delay(3000);//Time between data values gathered
+  
+}
+  
+/*  //You can change value "25"
+  if (value > 400){
+    digitalWrite(ledPin, LOW);  //Turn led off
+  }
+  else{
+    digitalWrite(ledPin, HIGH); //Turn led on
+  }
+
+  delay(500); //Small delay
+}*/
