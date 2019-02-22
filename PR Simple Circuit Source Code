@@ -1,5 +1,13 @@
 //Original Source code modified and adapted from the following source:  http://www.ardumotive.com/how-to-use-a-photoresistor-en.html
 
+//Schematic Diagram utilizing the Arduino:  
+//              PhotoR           10K Resistor
+//  +5V   o---/\/\/\/\-----------/\/\/\/\----o  GND
+//                         |
+//                         |
+// Pin A0 o-----------------
+
+
 //Constants
 const int pResistor = A0; // Photoresistor at Arduino analog pin A0
 //const int ledPin=9;       // Led pin at Arduino pin 9
