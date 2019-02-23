@@ -1,0 +1,45 @@
+/* Code taken and modified from: https://learn.sparkfun.com/tutorials/flex-sensor-hookup-guide/all
+ *  
+ * In the case of flex sensors, it is important to realize that the resistance of the flex 
+ * sensor when straight and when bent can vary significantly from flex sensor to flex sensor.
+ * Before building your flex sensor circuit, use a multimeter to measure the resistance of
+ * your particular flex sensor when bent (bentR value) and when straight (straightR value).
+ * 
+ *  Refer to the Outcomes:Reverse Engineering a Flex Sensor document under the "Wiki" Tab
+ *  for schmatic diagram
+ */
+const int sensorINPUT = A0; // Pin connected to voltage divider output
+
+const float VCC = 4.98; // Measured voltage of Ardunio 5V line
+const float resistorVALUE = 10968; // Total resistance value of any resistors used in the circuit
+//Choose a total resistance value in between your straightR and bentR value
+//Your resistorVALUE contributes to the sensitivity of your measurements
+
+
+const float straightR = 9140.0; // resistance when straight
+const float bentR = 16000; // resistance at 90 deg
+//These values can be adjusted later to give better approximated angle measurements
+
+void setup() 
+{
+  Serial.begin(9600);
+  pinMode(sensorINPUT, INPUT);
+}
+
+void loop() 
+{
+  int flexADC = analogRead(sensorINPUT); //Reads voltage change made by bending of sensor
+  //Stores voltage change as an ADC factor between 0-1023
+  float flexV = flexADC * VCC / 1023.0; //Converts ADC value into a voltage
+  float flexR = resistorVALUE * (VCC / flexV - 1.0); //Calculates resistance of flex sensor
+  Serial.println("Resistance: " + String(flexR) + " ohms");
+
+  // Use the calculated resistance to estimate the sensor's
+  // bend angle:
+  float angle = map(flexR, straightR, bentR,
+                   0, 90.0);
+  Serial.println("Bend: " + String(angle) + " degrees");
+  Serial.println();
+
+  delay(500);
+}
